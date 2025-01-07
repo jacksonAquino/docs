@@ -81,6 +81,12 @@
         "api-reference/endpoint/create",
         "api-reference/endpoint/delete"
       ]
+    },
+    {
+      "group": "Companies",
+      "pages": [
+        "api-reference/endpoint/companies/find_by_cnpj"
+      ]
     }
   ],
   "footerSocials": {
