@@ -145,6 +145,133 @@
               }
             }
           },
+          "cnaes": {
+            "description": "Cnaes da empresa",
+            "type": "object",
+            "properties": {
+              "primary": {
+                "description": "Descrição do cnae primario",
+                "type": "string"
+              },
+              "primaryId": {
+                "description": "Numeração do cnae primario",
+                "type": "string"
+              },
+              "secondary": {
+                "description": "Descrições do cnaes secundários",
+                "type": "string"
+              },
+              "secondaryId": {
+                "description": "Lista com as numerações dos cnaes secundários",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "area": {
+            "type": "string",
+            "description": "Setor da empresa, similar a descrição do cnae primário"
+          },
+          "cnpjsGroup": {
+            "description": "10 primeiros cnpjs da empresa(filiais)",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "totalCnpjs": {
+            "type": "integer",
+            "description": "quantidade total de cnpjs da empresa"
+          },
+          "additionalContactData": {
+            "type": "object",
+            "description": "Contém a lista de emails, endereços e telefones",
+            "properties": {
+              "emails": {
+                "type": "array",
+                "description": "Lista de emails da empresa",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "description": "Email",
+                      "type": "string"
+                    },
+                    "score": {
+                      "type": "string",
+                      "description": "Numeração que indica o nível de confiabilidade do email baseado na quantidade de fontes de onde ele veio"
+                    },
+                    "origins": {
+                      "type": "array",
+                      "description": "lista de origens de onde o dado foi coletado, exemplo 'dados coletados da web', 'Receita Federal'",
+                      "items": { "type": "string" }
+                    },
+                    "flags": {
+                      "type": "array",
+                      "description": "Até o momento usado apenas para identificar se pertence ou não a contador",
+                      "items": { "type": "string" }
+                    }
+                  }
+                }
+              },
+              "address": {
+                "type": "array",
+                "description": "Lista de emails da empresa",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "address": {
+                      "description": "Endereço",
+                      "type": "string"
+                    },
+                    "score": {
+                      "type": "string",
+                      "description": "Numeração que indica o nível de confiabilidade do email baseado na quantidade de fontes de onde ele veio"
+                    },
+                    "origins": {
+                      "type": "array",
+                      "description": "lista de origens de onde o dado foi coletado, exemplo 'dados coletados da web', 'Receita Federal'",
+                      "items": { "type": "string" }
+                    },
+                    "flags": {
+                      "type": "array",
+                      "description": "Até o momento usado apenas para identificar se pertence ou não a contador",
+                      "items": { "type": "string" }
+                    }
+                  }
+                }
+              },
+              "phones": {
+                "type": "array",
+                "description": "Lista de emails da empresa",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "phone": {
+                      "description": "Número de telefone",
+                      "type": "string"
+                    },
+                    "score": {
+                      "type": "string",
+                      "description": "Numeração que indica o nível de confiabilidade do email baseado na quantidade de fontes de onde ele veio"
+                    },
+                    "origins": {
+                      "type": "array",
+                      "description": "lista de origens de onde o dado foi coletado, exemplo 'dados coletados da web', 'Receita Federal'",
+                      "items": { "type": "string" }
+                    },
+                    "flags": {
+                      "type": "array",
+                      "description": "Até o momento usado apenas para identificar se pertence ou não a contador",
+                      "items": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "administrationData": {
             "type": "object",
             "properties": {
@@ -160,7 +287,7 @@
                     },
                     "level": {
                       "type": "string",
-                      "description": "Nível do decisor"
+                      "description": "Nível do decisor(Não classificado, Alto, Médio, Baixo)"
                     },
                     "lkd_url": {
                       "type": "string",
@@ -196,42 +323,6 @@
             }
           }
         }
-      },
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
       },
       "Error": {
         "required": [
