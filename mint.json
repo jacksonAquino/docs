@@ -40,9 +40,9 @@
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "Autenticação da api",
       "pages": [
-        "api-reference/introduction"
+        "api-reference/authentication"
       ]
     },
     {

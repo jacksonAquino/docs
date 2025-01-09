@@ -1,0 +1,56 @@
+---
+title: 'Autenticação'
+description: 'Esta seção mostra como se autenticar nos endpoints'
+---
+
+O token convencional usado na comunicação entre a interface do atlas e a api não pode ser gerado via endpoint com email 
+e senha, pois passa por uma verificação de recaptcha.
+
+Embora a autenticação possa ser feita com o mesmo token de acesso utilizado em nossa interface e armazenado no LocalStorage 
+na variável "auth_token_default", não é aconselhado fazer isso pois este sempre é invalidado quando o usuário faz um novo 
+login na plataforma. O mais correto é utilizar um token de integração, para obte-lo devemos ir dentro da plataforma na pagina:
+
+https://app.speedio.com.br/user/adminpanel
+
+Dentro da pagina precisamos clicar nesta opção:
+
+![Atlas](https://t9013100130.p.clickup-attachments.com/t9013100130/283a25ec-e80f-469a-b1be-82cea7b1215a/image.png)
+
+Será gerado então um novo token de integração e seu token de recarga, será copiada então o seguinte texto para sua área 
+de transferência:
+
+``` json
+{
+  "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiNjI3MDBlNTY1NDhhNjQxNjE2ZGU1NTRhIiwiZXhwIjoxNzIxMjMzNDUxfQ.Vub7kA-JhpXW6JrXKMVfI3ERAEVVz2dcZstcSA5VgkM",
+  "refresh_token": "eyJhbGciOiJIUzI1NiJ9.eyJfdXNlcl9pZCI6IjYyNzAwZTU2NTQ4YTY0MTYxNmRlNTU0YSIsInRpbWUiOjE3MjEyMjk4NTF9.yEpo2c4dxvK4hsRlVFzVqxbA3oagJ74VK-HbVOX5HrI"
+}
+```
+O token tem duração de uma hora e será usado para autenticação da api, sendo passado no Header desta forma:
+```json
+"headers": [
+  {
+    "Authorization": "Bearer ***"
+  }
+]
+```
+
+O refresh_token será usado para recarregar o token de integração caso ele expire, usando o seguinte endpoint: 
+
+POST https://api.speedio.com.br/api/v3/auth/refresh_integration_token
+
+PARAMS:
+``` json
+{
+  "refresh_token": "eyJhbGciOiJIUzI1NiJ9.eyJfdXNlcl9pZCI6IjYyNzAwZTU2NTQ4YTY0MTYxNmRlNTU0YSIsInRpbWUiOjE3MjEyMjk4NTF9.yEpo2c4dxvK4hsRlVFzVqxbA3oagJ74VK-HbVOX5HrI",
+}
+```
+RESPONSE
+``` json
+{
+  "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiNjI3MDBlNTY1NDhhNjQxNjE2ZGU1NTRhIiwiZXhwIjoxNzIxMjMzNDUxfQ.Vub7kA-JhpXW6JrXKMVfI3ERAEVVz2dcZstcSA5VgkM",
+  "refresh_token": "eyJhbGciOiJIUzI1NiJ9.eyJfdXNlcl9pZCI6IjYyNzAwZTU2NTQ4YTY0MTYxNmRlNTU0YSIsInRpbWUiOjE3MjEyMjk4NTF9.yEpo2c4dxvK4hsRlVFzVqxbA3oagJ74VK-HbVOX5HrI"
+}
+```
+
+**Importante ressaltar** que o refresh token não possui tempo de expiração, no entanto só poderá ser udado uma única vez, 
+sempre que for usado será devolvido um novo token de acesso e um novo token de recarga.
