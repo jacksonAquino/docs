@@ -19,6 +19,57 @@
     }
   ],
   "paths": {
+    "/v4/companies/{cnpj}/cnpjs_group": {
+      "get": {
+        "description": "Retorna os cnpjs relacionados ao enviado",
+        "parameters": [
+          {
+            "name": "cnpj",
+            "in": "path",
+            "description": "Número do cnpj da empresa",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem autorização para consultar este cnpj, caso ainda não tenha consultado o mesmo no endpoint find_by_cnpj",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorV4"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Usuário não autenticado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorV3"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v4/companies/find_by_cnpj": {
       "get": {
         "description": "Retorna todos os dados que possuímos da empresa",
@@ -34,7 +85,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "Sucesso",
             "content": {
               "application/json": {
                 "schema": {
@@ -51,7 +102,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorV4"
                 }
               }
             }
@@ -61,7 +112,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorV3"
                 }
               }
             }
@@ -324,7 +375,7 @@
           }
         }
       },
-      "Error": {
+      "ErrorV3": {
         "required": [
           "error",
           "message"
@@ -336,6 +387,27 @@
             "format": "int32"
           },
           "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ErrorV4": {
+        "required": [
+          "error",
+          "details"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "error": {
+            "description": "Descrição menos técnica",
+            "type": "string"
+          },
+          "details": {
+            "description": "Descrição mais detalhada com fins de melhorar a debugação do problema",
             "type": "string"
           }
         }

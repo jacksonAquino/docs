@@ -1,0 +1,8 @@
+---
+title: 'CNPJs Group'
+openapi: 'GET /v4/companies/{cnpj}/cnpjs_group'
+---
+
+## Pontos a serem considerados
+Este endpoint retorna de forma paginada os cnpjs vinculadas ao enviado nos parametros da requisição, cada request retorna
+10 cnpjs. Ele permite a consulta apenas caso o cnpj enviado já tenha sido consultado e debitado credito.
