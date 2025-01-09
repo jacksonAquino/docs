@@ -134,6 +134,103 @@
             "description": "Nome da razão social",
             "type": "string"
           },
+          "foundedAt": {
+            "description": "Data da fundação da empresa DD/MM/AAAA",
+            "type": "string"
+          },
+          "createdCnpjAt": {
+            "description": "Data da criação do cnpj DD/MM/AAAA",
+            "type": "string"
+          },
+          "juridicalNature": {
+            "description": "Natureza Jurídica",
+            "type": "string"
+          },
+         "additionalData": {
+            "description": "Dados adicionais",
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "title": "full_qsa",
+                  "type": "object",
+                  "properties": {
+                    "full_qsa": {
+                      "type": "array",
+                      "description": "Quadro Societário",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "dt_society_entrance": {
+                            "description": "Data de entrada AAAA-MM-DD",
+                            "type": "string"
+                          },
+                          "name": {
+                            "description": "Nome do sócio",
+                            "type": "string"
+                          },
+                          "position": {
+                            "description": "posição do sócio",
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "title": "pgfn_debts",
+                  "type": "object",
+                  "properties": {
+                    "pgfn_debts": {
+                      "type": "object",
+                      "description": "Dívidas em aberto",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "title": "dividas_totais",
+                                "type": "object",
+                                "properties": {
+                                  "dividas_totais": {
+                                    "type": "object",
+                                    "properties": {
+                                      "valor": { 
+                                        "type": "string",
+                                        "description": "Dividas totais"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "title": "demaisdebitos_tributarios",
+                                "type": "object",
+                                "properties": {
+                                  "demaisdebitos_tributarios": {
+                                    "type": "object",
+                                    "properties": {
+                                      "valor": { 
+                                        "type": "string",
+                                        "description": "Demais débitos tributários"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+
           "fantasyName": {
             "description": "Nome fantasia",
             "type": "string"
