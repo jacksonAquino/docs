@@ -19,6 +19,49 @@
     }
   ],
   "paths": {
+    "/v4/info_sets/{id}": {
+      "delete": {
+        "description": "Deletar um InfoSet",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id do InfoSet",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Usuário não autenticado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorV3"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v4/info_sets": {
       "get": {
         "description": "Retorna a listagem de info_sets de forma paginada",
