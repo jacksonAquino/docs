@@ -54,7 +54,8 @@
     {
       "group": "InfoSets",
       "pages": [
-        "api-reference/endpoint/info_sets/index"
+        "api-reference/endpoint/info_sets/index",
+        "api-reference/endpoint/info_sets/companies"
       ]
     }
   ],

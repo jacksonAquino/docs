@@ -76,6 +76,63 @@
         }
       }
     },
+    "/v4/info_sets/{info_set_id}/companies": {
+      "get": {
+        "description": "Retorna a listagem de empresas de um info_set de forma paginada e reduzida",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Filtro de nome",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Pagina",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanySummary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "InfoSet não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorV4"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Usuário não autenticado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorV3"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v4/companies/{cnpj}/cnpjs_group": {
       "get": {
         "description": "Retorna os cnpjs relacionados ao enviado",
@@ -212,6 +269,77 @@
             "description": "Status de validação de telefones",
             "type": "string",
             "enum": ["not initialized", "requested", "sended", "finished"]
+          }
+        }
+      },   
+      "CompanySummary": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "description": "Total de empresas que o InfoSet possui",
+            "type": "integer"
+          },
+          "name": {
+            "description": "Nome do InfoSet",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Data de criação(2024-05-15T18:47:44.251Z)",
+            "type": "string"
+          },
+          "star": {
+            "description": "Indicativo de estar ou não favoritado",
+            "type": "boolean"
+          },
+          "companies": {
+            "description": "Listagem de empresas",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "description": "id da empresa",
+                  "type": "string"
+                },
+                "name": {
+                  "description": "Nome fantasia ou razão social da empresa",
+                  "type": "string"
+                },
+                "area": {
+                  "description": "Setor da empresa",
+                  "type": "string"
+                },
+                "employees": {
+                  "description": "Faixa de funcionarios",
+                  "type": "object",
+                  "properties": {
+                    "company": {
+                      "type": "string",
+                      "description": "intervalo de funcionarios da empresa(1 a 5)"
+                    },
+                    "cnpj": {
+                      "type": "string",
+                      "description": "intervalo de funcionarios do cnpj(1 a 5)"
+                    }
+                  }
+                },
+                "address": {
+                  "type": "object",
+                  "properties": {
+                    "city": {
+                      "type": "string"
+                    },
+                    "state": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "number_cnpj": {
+                  "type": "string",
+                  "description": "Cnpj da empresa"
+                }
+              }
+            }
           }
         }
       },   
