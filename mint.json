@@ -50,6 +50,12 @@
         "api-reference/endpoint/companies/find_by_cnpj",
         "api-reference/endpoint/companies/cnpjs_group"
       ]
+    },
+    {
+      "group": "InfoSets",
+      "pages": [
+        "api-reference/endpoint/info_sets/index"
+      ]
     }
   ],
   "footerSocials": {

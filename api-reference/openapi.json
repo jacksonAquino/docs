@@ -19,6 +19,63 @@
     }
   ],
   "paths": {
+    "/v4/info_sets": {
+      "get": {
+        "description": "Retorna a listagem de info_sets de forma paginada",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Filtro de nome",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Pagina",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InfoSet"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem autorização para consultar este cnpj, caso ainda não tenha consultado o mesmo no endpoint find_by_cnpj",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorV4"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Usuário não autenticado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorV3"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v4/companies/{cnpj}/cnpjs_group": {
       "get": {
         "description": "Retorna os cnpjs relacionados ao enviado",
@@ -123,6 +180,41 @@
   },
   "components": {
     "schemas": {
+      "InfoSet": {
+        "type": "object",
+        "properties": {
+          "author_id": {
+            "description": "Id do autor",
+            "type": "string"
+          },
+          "name": {
+            "description": "Nome do InfoSet",
+            "type": "string"
+          },
+          "createdAt": {
+            "description": "Data de criação(2024-05-15T18:47:44.251Z)",
+            "type": "string"
+          },
+          "star": {
+            "description": "Indicativo de estar ou não favoritado",
+            "type": "boolean"
+          },
+          "description": {
+            "description": "Descrição do InfoSet(campo legado)",
+            "type": "string"
+          },
+          "emails_validation_status": {
+            "description": "Status de validação de emails",
+            "type": "string",
+            "enum": ["not initialized", "requested", "sended", "finished"]
+          },
+          "phones_validation_status": {
+            "description": "Status de validação de telefones",
+            "type": "string",
+            "enum": ["not initialized", "requested", "sended", "finished"]
+          }
+        }
+      },   
       "CompanyEs": {
         "type": "object",
         "properties": {
