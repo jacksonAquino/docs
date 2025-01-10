@@ -57,7 +57,8 @@
         "api-reference/endpoint/info_sets/index",
         "api-reference/endpoint/info_sets/companies",
         "api-reference/endpoint/info_sets/create",
-        "api-reference/endpoint/info_sets/delete"
+        "api-reference/endpoint/info_sets/delete",
+        "api-reference/endpoint/info_sets/update"
       ]
     }
   ],
