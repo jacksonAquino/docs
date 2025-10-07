@@ -278,6 +278,63 @@
         }
       }
     },
+    "/v4/info_sets/{info_set_id}/companies/{company_id}": {
+      "get": {
+        "description": "Busca uma empresa que pertence a lista pelo seu id",
+        "parameters": [
+          {
+            "name": "info_set_id",
+            "in": "path",
+            "description": "Id da lista",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "description": "Id da empresa",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyEs"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "InfoSet não encontrado // Empresa não encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorV3"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Usuário não autenticado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorV3"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v4/companies/{cnpj}/cnpjs_group": {
       "get": {
         "description": "Retorna os cnpjs relacionados ao enviado",
