@@ -61,6 +61,11 @@
         "api-reference/endpoint/info_sets/delete",
         "api-reference/endpoint/info_sets/update"
       ]
+    }, {
+      "group": "Search",
+      "pages": [
+        "api-reference/endpoint/search/create"
+      ]
     }
   ],
   "footerSocials": {
